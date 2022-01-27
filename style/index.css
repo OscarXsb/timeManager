@@ -1,0 +1,217 @@
+body ul{
+    list-style-type: none;
+}
+body button {
+    text-decoration: none;
+    background-color: transparent;
+    color: inherit;
+    border: none;
+}
+body .nav-bar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+body .nav-bar h1{
+    font-size: 2em;
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+    font-family: 'MiSans Heavy';
+    text-transform: uppercase;
+}
+body .nav-bar li{
+    display: inline-block;
+    padding: 0 10px;
+}
+body .nav-bar li button{
+    cursor:pointer;
+    font-size: 30px;
+}
+body .add-event-bar{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    max-width: 520px;
+    min-width: 320px;
+    height: auto;
+    z-index: 2000;
+    transform: translateX(-50%) translateY(-50%);
+    padding: 40px 0;
+    background-color: #fff;
+    border-radius: 15px;
+    transition: all .3s;
+    display: none;
+}
+.add-event-bar .box-title{
+    font-family: 'MiSans Heavy';
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+.add-event-bar .box-content input[type="radio"]{
+    display: none;
+}
+.add-event-bar .box-content .tab{
+    display:none;
+}
+.add-event-bar .box-content .check-box{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.add-event-bar .box-content .check-box span{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 20px;
+    font-family: 'MiSans Light';
+}
+#pomodoro-technique:checked ~ .check-box label[for="pomodoro-technique"] span{
+    background-color: #eeeeee;
+}
+#no-scheduled-task:checked ~ .check-box label[for="no-scheduled-task"] span{
+    background-color: #eeeeee;
+}
+#pomodoro-technique:checked ~ .tab-pomodoro{
+    display: flex;
+}
+#no-scheduled-task:checked ~ .tab-no-scheduled{
+    display: flex;
+}
+.box-content .tab-pomodoro{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.box-content .tab-pomodoro form{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin-top: 5px;
+}
+.box-content .tab-pomodoro input{
+    width: 90%;
+    padding: 10px;
+    outline: none;
+    border: #000 solid 1px;
+    border-radius: 3px;
+    font-size: 20px;
+    font-family: 'MiSans Light';
+}
+.box-content .tab-pomodoro form .time-range-box{
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    padding : 0;
+    justify-content: center;
+    align-items: flex-end;
+    font-family: 'MiSans Light';
+    font-size: 20px;
+}
+.box-content .tab-pomodoro form .time-range-box input{
+    width: 95%;
+    margin:0;
+    margin-top: 10px;
+}
+.box-content .tab-pomodoro form .pomodoro-control-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    margin-top: 15px;
+}
+.box-content .tab-pomodoro form .pomodoro-control-box button{
+    font-size: 22px;
+    font-family: 'MiSans Light';
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    width: 50%;
+    text-align: center;
+    padding: 10px 5px;
+    cursor: pointer;
+    color: #fff;
+}
+#pomodoro-submit{
+    background-color: #34495e;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    margin-right: 2px;
+}
+#pomodoro-cancel{
+    background-color: #95a5a6;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    margin-left: 2px;
+}
+.add-event-shadow{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    display: none;
+    z-index: 1000;
+}
+
+.content-bar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.content-bar .item-show{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 420px;
+    min-width: 360px;
+    width: auto;
+    height: 100px;
+    border: #34495e solid 2px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.content-bar .item-show .left-bar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    height:70px;
+    width: 250px;
+    padding: 25px 20px;
+    font-family: 'MiSans Light';
+    font-size: 20px;
+    
+}
+.content-bar .item-show .left-bar span{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
+    max-width: 250px;
+}
+.content-bar .item-show .start-right-bar{
+    cursor: pointer;
+    height: 100%;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'MiSans';
+    font-size: 20px;
+    letter-spacing: 2px;
+}
