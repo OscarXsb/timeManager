@@ -285,3 +285,29 @@ body .add-event-bar{
 #play-music{
     color:rgba(255,255,255,.6);
 }
+.pie-stats{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #dfe6e9;
+    /* display: flex;
+    justify-content: center;
+    align-items: center;*/
+    display: none; 
+}
+.stats-toolbar{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+.stats-toolbar button{
+    cursor: pointer;
+    font-size: 35px;
+}

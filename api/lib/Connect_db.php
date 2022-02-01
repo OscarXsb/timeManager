@@ -141,9 +141,6 @@ public function insert($table,$data){
 $key_str='';
 $v_str='';
 foreach($data as $key=>$v){
-if(empty($v)){
-die("error");
-}
 //$key的值是每一个字段s一个字段所对应的值
 $key_str.=$key.',';
 $v_str.="'$v',";

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./style/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./style/index.css">
     <script src="./script/jquery-3.6.0.min.js"></script>
+    <script src="./script/echarts.min.js"></script>
 </head>
 
 <body>
@@ -18,6 +19,11 @@
             <li>
                 <button id="show-add-item">
                     <i class="fa fa-plus"></i>
+                </button>
+            </li>
+            <li>
+                <button id="show-stats">
+                    <i class="fa fa-pie-chart"></i>
                 </button>
             </li>
         </ul>
@@ -65,11 +71,11 @@
         <div class="record-content">
             <div class="record-title">
                 <span>
-                    <nobr>东北师大附中明珠学校初三语文寒假作业综合试卷（三）</nobr>
+                    <nobr>RECORD TITLE</nobr>
                 </span>
             </div>
             <div class="record-time">
-                <span>29:40</span>
+                <span>00:00</span>
             </div>
             <audio loop preload="auto" id="record-audio">
                 <source src="/media/1.mp3" type="audio/mp3" />
@@ -106,6 +112,17 @@
 
         </div>
     </div>
+
+    <div class="pie-stats" id="pie-stats">
+
+    </div>
+    <div class="stats-toolbar">
+        <button>
+            <i class="fa fa-close"></i>
+        </button>
+        
+    </div>
+
 </body>
 <script>
     let max_bg_num = 7;
@@ -130,9 +147,10 @@
             success: function(data) {
                 console.log(data);
             }
-        })
+        }).done(function() {
+            refresh_item();
+        });
         clear_add_item();
-        refresh_item();
         $("#pomodoro-item-content").css("border", "1px solid #000");
 
         return false;
@@ -142,6 +160,9 @@
     });
     $("#show-add-item").on("click", function() {
         show_add_item();
+    });
+    $("#stop-record").on("click", function() {
+        close_record();
     });
 
     function refresh_item() {
@@ -200,15 +221,21 @@
                         time = '0' + time;
                     }
                     $('.record-time span').html(time + ":00");
-                    let start_timestamp=new Date().getTime();
+                    let start_timestamp = new Date().getTime();
+                    console.log(start_timestamp.toString());
+                    start_timestamp = start_timestamp.toString().substring(0, 10);
+                    console.log(start_timestamp);
+                    start_timestamp = parseInt(start_timestamp);
                     let timeLeft = item_data['item_time'] * 60;
-                    let record_timer = setInterval(function() {
+                    window.record_timer = setInterval(function() {
                         timeLeft--;
                         if (timeLeft <= 0) {
                             clearInterval(record_timer);
                             $(".record-time span").html("00:00");
-                            let end_timestamp=new Date().getTime();
-                            finish_record(item_id, item_data['rest_time'],start_timestamp,end_timestamp);
+                            let end_timestamp = new Date().getTime();
+                            end_timestamp = end_timestamp.toString().substring(0, 10);
+                            end_timestamp = parseInt(end_timestamp);
+                            finish_record(item_id, item_data['item_name'], item_data['rest_time'], start_timestamp, end_timestamp, item_data['item_time']);
                             return;
                         }
                         let min = Math.floor(timeLeft / 60);
@@ -233,7 +260,22 @@
         $(".record-time-bar").css("background", `url("/style/img/${random_num}.webp") no-repeat center ,url("/style/img/${random_num}.jpg") no-repeat center`);
     }
 
-    function finish_record(item_id, rest_time,start_t,end_t) {
+    function finish_record(item_id, item_name, rest_time, start_ts, end_ts, last_min) {
+        console.log(start_ts);
+        $.ajax({
+            url: "/api/finish_item.php",
+            type: "POST",
+            data: {
+                item_id: item_id,
+                item_name: item_name,
+                start_time: start_ts,
+                end_time: end_ts,
+                last_time: last_min,
+            },
+            success: function(data) {
+                console.log(data);
+            }
+        });
         start_rest(rest_time);
     }
 
@@ -242,8 +284,8 @@
         let timeLeft = rest_time * 60;
         if (rest_time < 10) rest_time = '0' + rest_time;
         $('.record-time span').html(rest_time + ":00");
-        let record_timer = setInterval(function() {
-            console.log(rest_time);
+        window.record_timer = setInterval(function() {
+            // console.log(rest_time);
             timeLeft--;
             if (timeLeft <= 0) {
                 clearInterval(record_timer);
@@ -266,22 +308,26 @@
     function close_record() {
         $(".nav-bar").show();
         $(".content-bar").show();
+        let audio = $('#record-audio')[0];
         audio.pause();
+        audio.currentTime = 0;
+        clearInterval(window.record_timer);
         $(".record-time-bar").slideUp(1000);
-        $("#play-music").css("color","rgba(255,255,255,.6)")
+        $("#play-music").css("color", "rgba(255,255,255,.6)");
         return;
     }
-    function control_record_music(){
+
+    function control_record_music() {
         let audio = $('#record-audio')[0];
-        if(audio.paused){
+        if (audio.paused) {
             audio.play();
-            $("#play-music").css("color","rgba(255,255,255,1)")
-        }
-        else{
+            $("#play-music").css("color", "rgba(255,255,255,1)")
+        } else {
             audio.pause();
-            $("#play-music").css("color","rgba(255,255,255,.6)")
+            $("#play-music").css("color", "rgba(255,255,255,.6)")
         }
     }
 </script>
+<script src="./script/getstats.js"></script>
 
 </html>
