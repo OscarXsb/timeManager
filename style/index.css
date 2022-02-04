@@ -301,11 +301,11 @@ body .add-event-bar{
 }
 .stats-toolbar{
     position: absolute;
-    right: 15px;
-    top: 15px;
+    right: 0;
+    top: 0;
     display: none;
     margin: 0;
-    padding: 0;
+    padding: 15px;
 }
 .stats-toolbar button{
     cursor: pointer;

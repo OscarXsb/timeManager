@@ -1,10 +1,12 @@
 
 var chartDom = document.getElementById('pie-stats');
-var statsChart = echarts.init(chartDom);
+var statsChart = echarts.init(chartDom, null, {renderer: 'svg'});
 var option;
+let flag = false;
 
 
 $("#show-stats").on("click", function () {
+    flag = true;
     $(".nav-bar").hide();
     $(".content-bar").hide();
     $("#pie-stats").slideDown(1000, function () {
@@ -55,7 +57,7 @@ $("#show-stats").on("click", function () {
                         if (sec < 10) {
                             sec = "0" + sec;
                         }
-                        return params.name  + " ("+params.percent+ '%'+") " + '<br/>' + min + "' " + sec + "''" + "<br/>" + params.data.start_time + " ~" + params.data.finish_time;
+                        return params.name + " (" + params.percent + '%' + ") " + '<br/>' + min + "' " + sec + "''" + "<br/>" + params.data.start_time + " ~" + params.data.finish_time;
                     }
                 },
                 toolbox: {
@@ -95,9 +97,26 @@ $("#show-stats").on("click", function () {
 
 });
 
+$(function () {
+    $(window).resize(function () {
+        statsChart.resize({
+            width: chartDom.offsetWidth,
+            height: chartDom.offsetHeight
+        });
+        if (flag) {
+            option && statsChart.setOption(option);
+        }
+    });
+});
+
+
+
 $(".stats-toolbar button").on("click", function () {
-    $(".nav-bar").show();
-    $(".content-bar").show();
+    flag = false;
     $("#pie-stats").slideUp(1000);
-    $(".stats-toolbar").slideUp(1000);
+    $(".stats-toolbar").slideUp(1000, function () {
+        $(".nav-bar").show();
+        $(".content-bar").show();
+    });
+
 });

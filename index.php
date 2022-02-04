@@ -26,6 +26,11 @@
                     <i class="fa fa-pie-chart"></i>
                 </button>
             </li>
+            <li>
+                <button class="full-screen">
+                    <i class="fa fa-arrows-alt"></i>
+                </button>
+            </li>
         </ul>
     </div>
     <div class="add-event-bar">
@@ -104,6 +109,11 @@
                             <i class="fa fa-image"></i>
                         </button>
                     </li>
+                    <li>
+                        <button class="full-screen">
+                            <i class="fa fa-arrows-alt"></i>
+                        </button>
+                    </li>
                 </ul>
             </div>
 
@@ -120,7 +130,7 @@
         <button>
             <i class="fa fa-close"></i>
         </button>
-        
+
     </div>
 
 </body>
@@ -306,13 +316,14 @@
     }
 
     function close_record() {
-        $(".nav-bar").show();
-        $(".content-bar").show();
         let audio = $('#record-audio')[0];
         audio.pause();
         audio.currentTime = 0;
         clearInterval(window.record_timer);
-        $(".record-time-bar").slideUp(1000);
+        $(".record-time-bar").slideUp(1000, function() {
+            $(".nav-bar").show();
+            $(".content-bar").show();
+        });
         $("#play-music").css("color", "rgba(255,255,255,.6)");
         return;
     }
@@ -329,5 +340,6 @@
     }
 </script>
 <script src="./script/getstats.js"></script>
+<script src="./script/fullscreen.js"></script>
 
 </html>
