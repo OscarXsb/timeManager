@@ -1,4 +1,4 @@
-$('.full-screen').on('click', function (e) {
+$('.full-screen-btn').on('click', function (e) {
     var element = document.documentElement;
     if (!$('body').hasClass('full-screen')) {
         $('body').addClass('full-screen');
