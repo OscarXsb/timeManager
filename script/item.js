@@ -71,6 +71,7 @@ let max_bg_num = 7;
     }
 
     function show_add_item() {
+        $("#pomodoro-technique").prop("checked",true);
         $(".add-event-bar").fadeIn(100);
         $(".add-event-bar").css("display", "flex");
         $(".add-event-shadow").fadeIn(90);

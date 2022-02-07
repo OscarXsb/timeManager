@@ -285,19 +285,29 @@ body .add-event-bar{
 #play-music{
     color:rgba(255,255,255,.6);
 }
-.pie-stats{
+.stats-container{
     width: 100vw;
     height: 100vh;
-    margin: 0;
-    padding: 0;
-    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: none;
     left: 0;
     top: 0;
+    position:absolute;
     background-color: #dfe6e9;
+}
+.pie-stats{
+    min-height: 750px;
+    min-width: 700px;
+    margin: 0;
+    padding: 0;
+    
     /* display: flex;
     justify-content: center;
     align-items: center;*/
-    display: none; 
+    /* display: none;  */
 }
 .stats-toolbar{
     position: absolute;
@@ -310,4 +320,61 @@ body .add-event-bar{
 .stats-toolbar button{
     cursor: pointer;
     font-size: 35px;
+}
+
+/*stats tab*/
+.stats-container .stats-tab input{
+    display: none;
+}
+.stats-container .stats-tab .check-box{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.stats-container .stats-tab .check-box span{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 20px;
+    font-family: 'MiSans Light';
+}
+#day-stats:checked ~ .check-box label[for="day-stats"] span{
+    background-color: #eeeeee;
+}
+#week-stats:checked ~ .check-box label[for="week-stats"] span{
+    background-color: #eeeeee;
+}
+#month-stats:checked ~ .check-box label[for="month-stats"] span{
+    background-color: #eeeeee;
+}
+#season-stats:checked ~ .check-box label[for="season-stats"] span{
+    background-color: #eeeeee;
+}
+#year-stats:checked ~ .check-box label[for="year-stats"] span{
+    background-color: #eeeeee;
+}
+/* #pomodoro-technique:checked ~ .tab-pomodoro{
+    display: flex;
+}
+#no-scheduled-task:checked ~ .tab-no-scheduled{
+    display: flex;
+} */
+
+.check-merge{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.check-merge #merge-checkbox{
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+}
+.check-merge span{
+    font-size: 20px;
+    font-family: 'MiSans Light';
+    line-height: 50px;
 }

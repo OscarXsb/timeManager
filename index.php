@@ -20,7 +20,7 @@
                 <button id="show-add-item">
                     <i class="fa fa-plus"></i>
                 </button>
-            </li>                   
+            </li>
             <li>
                 <button id="show-stats">
                     <i class="fa fa-pie-chart"></i>
@@ -38,8 +38,11 @@
             <span>Add Item</span>
         </div>
         <div class="box-content">
+
             <input type="radio" name="tab" id="pomodoro-technique" checked>
             <input type="radio" name="tab" id="no-scheduled-task">
+
+
             <div class="check-box">
                 <label for="pomodoro-technique"><span>Pomodoro Technique</span></label>
                 <label for="no-scheduled-task"><span>No Scheduled Task</span></label>
@@ -122,10 +125,30 @@
 
         </div>
     </div>
+    <div class="stats-container">
+        <div class="stats-tab">
+            <input type="radio" name="tab" id="day-stats">
+            <input type="radio" name="tab" id="week-stats">
+            <input type="radio" name="tab" id="month-stats">
+            <input type="radio" name="tab" id="season-stats">
+            <input type="radio" name="tab" id="year-stats">
+            <div class="check-box">
+                <label for="day-stats"><span>Day</span></label>
+                <label for="week-stats"><span>Week</span></label>
+                <label for="month-stats"><span>Month</span></label>
+                <label for="season-stats"><span>Season</span></label>
+                <label for="year-stats"><span>Year</span></label>
+            </div>
+        </div>
+        
+        <div class="pie-stats" id="pie-stats">
 
-    <div class="pie-stats" id="pie-stats">
-
+        </div>
+        <div class="check-merge">
+            <input type="checkbox" id="merge-checkbox"><label for="merge-checkbox"><span>Merge Items</span></label>
+        </div>
     </div>
+
     <div class="stats-toolbar">
         <button>
             <i class="fa fa-close"></i>
