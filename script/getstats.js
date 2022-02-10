@@ -3,9 +3,14 @@ var chartDom = document.getElementById('pie-stats');
 var statsChart = echarts.init(chartDom, null, { renderer: 'svg' });
 var option;
 let flag = false;
+let statsform = 'day';
 
 function getType() {
-    return "single";
+    if ($("#merge-checkbox").prop("checked")) {
+        return 'sum';
+    } else {
+        return 'single';
+    }
 }
 
 function getStats(format, callback) {
@@ -27,21 +32,20 @@ function getStats(format, callback) {
             console.log(typeof (stats_data));
             console.log(stats_data)
         }
-    }).done(function(){
+    }).done(function () {
         callback(stats_data);
     });
 }
-function UpperFirstLetter(str)  
-{  
-   return str.replace(/\b\w+\b/g, function(word) {  
-   return word.substring(0,1).toUpperCase( ) +  word.substring(1);  
- });  
+function UpperFirstLetter(str) {
+    return str.replace(/\b\w+\b/g, function (word) {
+        return word.substring(0, 1).toUpperCase() + word.substring(1);
+    });
 }
-function setChart(format,s_data){
+function setChart(format, s_data) {
     option = {
         title: {
-            text: UpperFirstLetter(format) +' Time Distribution',
-            subtext: 'Time of '+format,
+            text: UpperFirstLetter(format) + ' Time Distribution',
+            subtext: 'Time of ' + format,
             left: 'center',
             top: '10%',
         },
@@ -58,7 +62,11 @@ function setChart(format,s_data){
                 if (sec < 10) {
                     sec = "0" + sec;
                 }
-                return params.name + " (" + params.percent + '%' + ") " + '<br/>' + min + "' " + sec + "''" + "<br/>" + params.data.start_time + " ~" + params.data.finish_time;
+                if (getType() == 'single') {
+                    return params.name + " (" + params.percent + '%' + ") " + '<br/>' + min + "' " + sec + "''" + "<br/>" + params.data.start_time + " ~" + params.data.finish_time;
+                } else {
+                    return params.name + " (" + params.percent + '%' + ") " + '<br/>' + min + "' " + sec + "''";
+                }
             }
         },
         toolbox: {
@@ -115,6 +123,7 @@ $("#show-stats").on("click", function () {
 });
 
 function dayStats(data = null) {
+    statsform = 'day';
     getStats("day",
         function (stats_data) {
             setChart('day', stats_data);
@@ -123,6 +132,7 @@ function dayStats(data = null) {
 }
 
 function weekStats(data = null) {
+    statsform = 'week';
     getStats("week",
         function (stats_data) {
             setChart('week', stats_data);
@@ -131,6 +141,7 @@ function weekStats(data = null) {
 }
 
 function monthStats(data = null) {
+    statsform = 'month';
     getStats("month",
         function (stats_data) {
             setChart('month', stats_data);
@@ -139,6 +150,7 @@ function monthStats(data = null) {
 }
 
 function seasonStats(data = null) {
+    statsform = 'season';
     getStats("season",
         function (stats_data) {
             setChart('season', stats_data);
@@ -147,6 +159,7 @@ function seasonStats(data = null) {
 }
 
 function yearStats(data = null) {
+    statsform = 'year';
     getStats("year",
         function (stats_data) {
             setChart('year', stats_data);
@@ -204,4 +217,12 @@ $(function () {
             yearStats();
         }
     });
+});
+
+$("#merge-checkbox").click(function () {
+    getStats(statsform,
+        function (stats_data) {
+            setChart(statsform, stats_data);
+        }
+    )
 });

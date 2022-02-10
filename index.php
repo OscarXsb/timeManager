@@ -39,8 +39,8 @@
         </div>
         <div class="box-content">
 
-            <input type="radio" name="tab" id="pomodoro-technique" checked>
-            <input type="radio" name="tab" id="no-scheduled-task">
+            <input type="radio" name="i_tab" id="pomodoro-technique" checked>
+            <input type="radio" name="i_tab" id="no-scheduled-task">
 
 
             <div class="check-box">
@@ -127,11 +127,11 @@
     </div>
     <div class="stats-container">
         <div class="stats-tab">
-            <input type="radio" name="tab" id="day-stats">
-            <input type="radio" name="tab" id="week-stats">
-            <input type="radio" name="tab" id="month-stats">
-            <input type="radio" name="tab" id="season-stats">
-            <input type="radio" name="tab" id="year-stats">
+            <input type="radio" name="s-tab" id="day-stats">
+            <input type="radio" name="s-tab" id="week-stats">
+            <input type="radio" name="s-tab" id="month-stats">
+            <input type="radio" name="s-tab" id="season-stats">
+            <input type="radio" name="s-tab" id="year-stats">
             <div class="check-box">
                 <label for="day-stats"><span>Day</span></label>
                 <label for="week-stats"><span>Week</span></label>

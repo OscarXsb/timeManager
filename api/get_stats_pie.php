@@ -7,12 +7,13 @@ $db = ConnectMysqli::getIntance();
 if (isset($_POST['format'])) {
     $format = $_POST['format'];
     $data = array();
+    $index = array();
     if ($format == "day") {
         $datestamp = date("Y-m-d", $_POST['datestamp']);
         $sql = "SELECT * FROM time_arrange WHERE date = '{$datestamp}'";
         $list = $db->getAll($sql);
         
-        if ($_POST['type'] == "single") {
+        
             $i = 0;
             foreach ($list as $value) {
                 $data[$i]['value'] = $value['item_time'];
@@ -21,7 +22,7 @@ if (isset($_POST['format'])) {
                 $data[$i]['finish_time'] = $value['finish_time'];
                 $i++;
             }
-        }
+        
 
         
     }
@@ -36,7 +37,6 @@ if (isset($_POST['format'])) {
         $sql = "SELECT * FROM time_arrange WHERE date between '{$week_start}' and '{$week_end}'";
         $list = $db->getAll($sql);
         
-        if ($_POST['type'] == "single") {
             $i = 0;
             foreach ($list as $value) {
                 $data[$i]['value'] = $value['item_time'];
@@ -45,7 +45,7 @@ if (isset($_POST['format'])) {
                 $data[$i]['finish_time'] = $value['finish_time'];
                 $i++;
             }
-        }
+        
 
         
     }
@@ -58,7 +58,6 @@ if (isset($_POST['format'])) {
         $sql = "SELECT * FROM time_arrange WHERE date between '{$month_start}' and '{$month_end}'";
         $list = $db->getAll($sql);
         
-        if ($_POST['type'] == "single") {
             $i = 0;
             foreach ($list as $value) {
                 $data[$i]['value'] = $value['item_time'];
@@ -67,7 +66,7 @@ if (isset($_POST['format'])) {
                 $data[$i]['finish_time'] = $value['finish_time'];
                 $i++;
             }
-        }
+        
 
         
     }
@@ -83,7 +82,6 @@ if (isset($_POST['format'])) {
         $sql = "SELECT * FROM time_arrange WHERE date between '{$season_start}' and '{$season_end}'";
         $list = $db->getAll($sql);
         
-        if ($_POST['type'] == "single") {
             $i = 0;
             foreach ($list as $value) {
                 $data[$i]['value'] = $value['item_time'];
@@ -92,7 +90,7 @@ if (isset($_POST['format'])) {
                 $data[$i]['finish_time'] = $value['finish_time'];
                 $i++;
             }
-        }
+        
 
         
     }
@@ -104,7 +102,6 @@ if (isset($_POST['format'])) {
         $sql = "SELECT * FROM time_arrange WHERE date between '{$year_start}' and '{$year_end}'";
         $list = $db->getAll($sql);
         
-        if ($_POST['type'] == "single") {
             $i = 0;
             foreach ($list as $value) {
                 $data[$i]['value'] = $value['item_time'];
@@ -113,11 +110,26 @@ if (isset($_POST['format'])) {
                 $data[$i]['finish_time'] = $value['finish_time'];
                 $i++;
             }
-        }
+        
 
         
     }
-    echo json_encode($data);
+    
+    if ($_POST['type'] == "single") {
+        echo json_encode($data);
+    }else{
+        $data_merge=array();
+        foreach($data as $value){
+            if(in_array($value['name'],$index)){
+                $data_merge[$value['name']]['value']+=$value['value'];
+                continue;
+            }
+            $data_merge[$value['name']]['value'] = $value['value'];
+            $data_merge[$value['name']]['name'] = $value['name'];
+            array_push($index,$value['name']);
+        }
+        echo json_encode(array_values($data_merge));
+    }
 } else {
     die("Error: no parameters");
 }
